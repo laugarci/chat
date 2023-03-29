@@ -62,6 +62,7 @@ body {
 	<body>
 		<ul id="messages"></ul>
 		<form id="form" action="">
+			<input id="username" type="text" name="username" placeholder="Nombre" required>
 			<input id="input" autocomplete="off" />
 			<button>Send</button>
 		</form>
@@ -71,17 +72,18 @@ body {
 		var messages = document.getElementById('messages');
 		var form = document.getElementById('form');
 		var input = document.getElementById('input');
-		
+		var username = document.getElementById('username');
+
 		form.addEventListener('submit', function(e) {
 			e.preventDefault();
 			if (input.value) {
-				socket.emit('chat message', input.value);
+				socket.emit('chat message', input.value, document.getElementById('username').value);
 				input.value = '';
 			}
 		});
-		socket.on('chat message', function(msg) {
+		socket.on('chat message', function(msg, username) {
 			var item = document.createElement('li');
-			item.textContent = msg;
+			item.textContent = username + ": " + msg;
 			messages.appendChild(item);
 			window.scrollTo(0, document.body.scrollHeight);
 		});
