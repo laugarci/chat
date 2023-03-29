@@ -15,7 +15,7 @@ io.on('connection', (socket) => {
 
 	  socket.on('chat message', (msg, username) => {
 		  io.emit('chat message', msg, username);
-		  console.log(username + 'message: ' + msg);
+		  console.log(username + ': ' + msg);
 	});
 	socket.on('set username', (username) => {
 		socket.username = username;	
